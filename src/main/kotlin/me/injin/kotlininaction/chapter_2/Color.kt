@@ -1,4 +1,4 @@
-package me.injin.kotlininaction.chapterTwo
+package me.injin.kotlininaction.chapter_2
 
 enum class Color(
     val r: Int, val g: Int, val b: Int  //상수에 프로퍼티를 정의한다.

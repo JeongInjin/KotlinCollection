@@ -1,4 +1,4 @@
-package me.injin.kotlininaction.chapterThree
+package me.injin.kotlininaction.chapter_3
 
 class chapterThree {
     //코틀린에서 컬렉션 만들기

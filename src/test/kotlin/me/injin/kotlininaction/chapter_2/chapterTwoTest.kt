@@ -1,6 +1,6 @@
-package me.injin.kotlininaction.chapterTwo
+package me.injin.kotlininaction.chapter_2
 
-import me.injin.kotlininaction.chapterTwo.Color.*
+import me.injin.kotlininaction.chapter_2.Color.*
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
