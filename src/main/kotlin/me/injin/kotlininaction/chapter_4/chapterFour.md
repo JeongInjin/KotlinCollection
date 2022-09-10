@@ -167,7 +167,8 @@ class Person(/*...*/){
         val name = name
             get() = field.toUpperCase()
       //field 예약어를 사용해야하는데, name.toUpperCase() 시, name 을 호출할경우
-      // getter 를 부르고 getter 안에는 name 이 있는 무한루프 상태에 빠지기때문에.
+      // getter 를 부르고 getter 안에는 name 이 있는 무한루프
+      // 상태에 빠지기때문에.
       //이를 자기자신을 가르키는 보이지 않는 필드라 backing field 라 한다.
       
       //아래와 같은 방법을 추천한다
@@ -179,5 +180,19 @@ class Person(/*...*/){
         get() = this.name.uppercase()
     }
 ```
-   
+- 4.3.1 모든 클래스가 정의해야 하는 메서드
+  - 객체의 동등성: equals()
+    - 자바에서는 == 이 주소값으로 비교하지만, 코틀린 == 은 내부적으로 equals() 를 호출한다.
+    - 참조 타입의 주소값을 비교하고 싶다면 === 을 이용하도록 하자.
+  - 해시 컨테이너: hashCode() https://kotlinworld.com/67
+    - 자바에서는 equals 를 오버라이드 할 때 반드시 hashCode 도 함께 오버라이드해야 한다.
+  - hash 와 관련된 자료구조는 동등성 연산전에 hashCode() 즉 hash Value 를 비교 후 값이 같은 경우 동등성 비교를 수행한다(비용절감 측면)
+  - data 클래스
+    - 자바에서 요구하는 메소드를 포함한다
+      - 인스턴스 간 비교를 위한 equals
+      - HashMap 과 같은 해시 기반 컨테이너에서 키로 사용할 수 있는 hashCode
+      - 클래스의 각 필드를 선언 순선대로 표시하는 문자열 표현을 만들어주는 toString
+  - 클래스 위임: by 키워드
+    - 인터페이스를 구현할때 by 키워드를 통해 그 인터페이스에 대한 구현을 다른 객체에 위임 중이라는 사실을 명시할 수 있다.
+    - 
     
