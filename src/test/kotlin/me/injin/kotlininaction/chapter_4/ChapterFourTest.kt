@@ -17,7 +17,6 @@ class ChapterFourTest {
         val injinBy = InjinBy(DroidKnights())
         injinBy.say()
     }
-}
 
 class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()) :
     MutableCollection<T> by innerSet { //MutableCollection 의 구현을 innserSet 에게 위임한다.
@@ -110,5 +109,6 @@ class Injin(private val presentation: Speaker) : Speaker {
     }
 }
 
-//by 키워드를 이용한 delegate pattern 과 비슷한..효과?
-class InjinBy(presentation: Speaker) : Speaker by presentation
+    //by 키워드를 이용한 delegate pattern 과 비슷한..효과?
+    class InjinBy(presentation: Speaker) : Speaker by presentation
+}
