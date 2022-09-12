@@ -18,6 +18,24 @@ class ChapterFourTest {
         injinBy.say()
     }
 
+    @Test
+    fun `companion object`() {
+        val bar = Bar
+        val bs = bar.barSize
+        println(bs)
+        val bss = bar.barSize2
+        println(bss)
+
+    }
+}
+
+class Bar {
+    companion object {
+        var barSize: Int = 0
+        @JvmField var barSize2: Int = 1
+    }
+}
+
 class CountingSet<T>(val innerSet: MutableCollection<T> = HashSet<T>()) :
     MutableCollection<T> by innerSet { //MutableCollection 의 구현을 innserSet 에게 위임한다.
     var objectsAdded = 0
@@ -109,6 +127,5 @@ class Injin(private val presentation: Speaker) : Speaker {
     }
 }
 
-    //by 키워드를 이용한 delegate pattern 과 비슷한..효과?
-    class InjinBy(presentation: Speaker) : Speaker by presentation
-}
+//by 키워드를 이용한 delegate pattern 과 비슷한..효과?
+class InjinBy(presentation: Speaker) : Speaker by presentation
