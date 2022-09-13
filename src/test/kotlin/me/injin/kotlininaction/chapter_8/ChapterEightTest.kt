@@ -67,4 +67,26 @@ internal class ChapterEightTest {
         println(second("OneParam"))
     }
 
+    //filter 힘수를 단순하게 만든 버전 구현하기
+    fun String.filter(predicate: (Char) -> Boolean): String {
+        val sb = StringBuilder()
+        for (index in indices) {
+            val element = get(index)
+            if(predicate(element)) sb.append(element)
+        }
+        return  sb.toString()
+    }
+
+    @Test
+    fun stringFilterTest() {
+        println("ab1c5az".filter { it in 'a'..'z' })
+    }
+
+    //joinToString
+    @Test
+    fun joinToStringTest() {
+        val letters = listOf("Alpha", "Beta")
+        println(letters.joinToString())
+        println(letters.joinToString {it.lowercase()})
+    }
 }
