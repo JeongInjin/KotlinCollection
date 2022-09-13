@@ -1,4 +1,4 @@
-package me.injin.kotlininaction.chapter_6.PropertyChangeAware
+package me.injin.kotlininaction.chapter_7.PropertyChangeAware
 
 import org.junit.jupiter.api.Test
 import java.beans.PropertyChangeListener

@@ -1,4 +1,4 @@
-package me.injin.kotlininaction.chapter_6.DelegateTest
+package me.injin.kotlininaction.chapter_7.DelegateTest
 
 import org.junit.jupiter.api.Test
 
