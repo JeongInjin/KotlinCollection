@@ -12,8 +12,8 @@ class lmabdaExampleTest {
         println("sharable1: $sharable")
         lock(reLock, {criticalFunc()})
         println("sharable2: $sharable")
-        lock(reLock) { criticalFunc()
-        println("sharable3: $sharable")}
+        lock(reLock) { criticalFunc()}
+        println("sharable3: $sharable")
         lock(reLock, ::criticalFunc)
         println("sharable4: $sharable")
     }
