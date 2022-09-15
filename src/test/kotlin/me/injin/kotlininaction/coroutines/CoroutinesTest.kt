@@ -189,4 +189,58 @@ class CoroutinesTest {
         }
         one.await() + two.await() + three.await()
     }
+
+    //context and Dispatchers
+    /*
+    코루틴이 시작될때는 coroutine context 에서 실행된다.
+    coroutine context 어떠한 요소들을 설정할 수 있다.
+    job 객체는 await, cancel 등을 설정할 수 있고
+    Dispatchers 는 어떤 쓰레드나, 쓰레드풀에서 실행될지 결정할 수 있다.
+    */
+    /**
+        코루틴 문맥에는 코루틴이 어느 스레드에서 동작할지를 결정하는 CoroutineDispatcher 가 포함된다.
+        dispatcher 는 코루틴이 특정 스레드에서 실행되도록 할 수도 있고, 스레드 풀에서 실행되도록 할 수도 있고,
+        또는 어느 스레드에서 실행될지 결정하지 않은 상태로 놔 둘 수도 있다.
+        launch 와 async 같은 모든 코루틴 빌더에서 CoroutineContext 매개변수를 지정할 수 있다.
+     */
+    @Test
+    fun dispatchersTest() = runBlocking<Unit> {
+        launch { // parent(main)에서 작동
+            println("main runBlocking      : I'm working in thread ${Thread.currentThread().name}")
+        }
+        launch(Dispatchers.Unconfined) { // 결정되지 않음: main에서 작동할 것
+            println("Unconfined            : I'm working in thread ${Thread.currentThread().name}")
+        }
+        //코틀린 공식 문서에서는 일반적인 경우 Dispatcher.Unconfined의 사용을 권장하지 않는다. 원문은 다음과 같다.
+        launch(Dispatchers.Default) { // DefaultDispatcher가 결정함
+            println("Default               : I'm working in thread ${Thread.currentThread().name}")
+        }
+        launch(newSingleThreadContext("MyOwnThread")) { // 자기만의 스레드를 생성
+            println("newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}")
+        }
+        //아래와 같은 방법으로 사용하는게 더 좋다.use 키워드를 이용해 자원을 반납할 수 있다.
+        newSingleThreadContext("MyOwnThread").use {
+            launch(it) {
+                println("newSingleThreadContext: I'm working in thread ${Thread.currentThread().name}")
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
