@@ -1,2 +1,4 @@
 #11장
-- DSL 도 우선은 넘어가, 추후 코틀린이 더 익숙해지면 살펴보도록 하겠다.
+- DSL(Domain Specific Language): 도메인 특화 언어
+
+
