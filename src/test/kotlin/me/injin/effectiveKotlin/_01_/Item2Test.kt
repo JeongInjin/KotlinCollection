@@ -75,4 +75,28 @@ class Item2Test {
         println(test3)
 
     }
+
+    @Test
+    fun copyTest() {
+        var a = CopyTest("a")
+        var b = a.copy()
+        println(a == b) //true
+        println(a === b) //false
+    }
+
+    @Test
+    fun plusAssignTest() {
+        val list1: MutableList<Int> = mutableListOf()
+        var list2: List<Int> = listOf()
+
+        list1.add(1)
+        list2 += 1
+
+        list1 += 2 // list1.plusAssign(2)로 변경됨.
+        list2 +=2 //list2.plus(2)로 변경됨.
+
+        list1.plusAssign(3)
+        list2.plus(3)
+    }
 }
+data class CopyTest(val name: String)
