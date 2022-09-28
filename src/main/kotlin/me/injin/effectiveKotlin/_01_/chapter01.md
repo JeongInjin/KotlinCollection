@@ -27,3 +27,29 @@
   - 음..해당 아이템은 개인적으로는 require 또는..원래하던데로 Elvis 연산자를 사용해서 throw 할듯..
   - -> 하던대로 하면 됨.
 
+- item6: 사용자 정의 오류보다는 표준 오류를 사용하라.
+  - 가급적 표준 라이브러리 오류를 사용하자.
+
+- item7: 결과 부족이 발생할 경우 null 과 Failure 를 사용하라.
+  - 예측가능한 범위의 오류는 null 과 Failure 를 사용하고, 
+  - 예측하기 어려운 예외적인 범위의 오류를 throw 해서 처리하자.
+
+- item8: 적절하게 null 을 처리하라.
+  - 처음 사용하기 전에 반드시 초기화가 하여 사용되어야 할경우 lateinit 키워드를 사용하고
+  - JVM 에서 Unt ,Long, Double, Boolean 과 같은 기본 타입과 연결된 타입으로 프로퍼티를 초기화 해야할 경우에는 Delegates.notNull 을 사용하자.
+
+-item9: use 를 사용하여 리소스를 닫아라.
+  - 더 이상 필요하지 않을때, close 메서드를 사용해 명시적으로 닫아야 하는 리소스가 있다.
+  - InputStream / OutputStream
+  - java.sql.Connection
+  - java.io.Reader
+  - java.new.Socket / java.uti.Scanner
+  - 등이 있는데, 이러한 리소스들은 AutoCloseable 을 상속받은 Closeable 인터페이스를 구현하고 있다.
+  - 이러한 모든 리소스는 최종적으로 리소스에 대한 레퍼런스가 없어질 때, 가바지 컬렉터가 처리한다.
+  - 하지만, 굉장히 느리며 그동안 리소스를 유지하는 비용이 많이 들어간다.
+  - 기존구현은 try-finally 방식으로 많이 처리했지만, 
+  - use 키워드를 사용하여 close 하자.
+    - 파일을 처리할 때는 파일을 한 줄씩 읽어 들이는 useLines 를 사용하는 것이 좋다.
+  
+  - item10: 단위 테스트를 만들어라
+    - 단위테스트를 만들어라.
