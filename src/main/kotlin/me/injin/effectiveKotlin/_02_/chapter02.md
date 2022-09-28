@@ -55,7 +55,13 @@ val data = getSomeData()
     - 같은 타입의 파라미터가 많은 경우
     - 함수 타입의 파라미터가 있는 경우(마지막 경우 제외)
     
-  
+- item18: 코딩 컨벤션을 지켜라.
+  - 잘 지키자.
+  - https://kotlinlang.org/docs/coding-conventions.html#naming-rules
+  - 인텔리제이 
+    - Preferences(단축키 : cmd + , ) > Editor > Coding Style > Kotlin > 오른쪽 상단에 Set form.. > Kotlin Style Guide 선택
+
+
 
 
  
