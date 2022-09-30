@@ -1,10 +1,19 @@
 package me.injin.kotlininaction.etc
 
+import org.junit.jupiter.api.Test
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
 class delegatedPropertyTest {
-
+    @Test
+    fun test() {
+        var insertCount = 0
+        repeat(10) {
+            if (insertCount++ < 5) {
+                println(insertCount)
+            }
+        }
+    }
 }
 
 fun main() {
