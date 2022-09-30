@@ -70,4 +70,36 @@ class BitCalTest {
         else
             println("CCTV($target)은 현재 ON 켜져 있습니다.")
     }
+
+
+    @Test
+    fun bitCalTest2() {
+        val input = "ABCD"
+        val password = 0x1234_5678
+
+        println("암호화 encryption")
+        val encrypted = Array(input.length) { 0 } // 0, 0, 0, ....
+        for ((i, ch) in input.withIndex()) {
+            println("i = $i, ch = $ch, val = 0x${ch.code.toString(16)}")
+            encrypted[i] = ch.code xor password //배타적 or
+        }
+
+        for (en in encrypted) {
+            println("em => ${en.toChar()} => $en")
+        }
+
+
+        println("\n복호화 decryption")
+        val decrypted = Array(input.length) { 0 }
+        for ((i, en) in encrypted.withIndex()) {
+            decrypted[i] = en xor password
+        }
+
+        for (de in decrypted) {
+            println("de => ${de.toChar()} => $de")
+        }
+
+    }
+
+
 }
