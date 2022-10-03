@@ -94,5 +94,25 @@ class UI(window: IWindow) : IWindow by window
     - 프로퍼티와 파라미터가 같은 이름을 가지게 되면, 지역 파라미터가 외부 스코프에 있는 프로퍼티를 가립니다.
   - 이름이 같은순간부터 별로인듯.
 ---
+- Item24: 제네릭 타입과 variance 한정자를 활용하라.
+  - 무공변, 공변성, 반공변성 얘기..
+  - example 디렉토리 아래 Generics_Invariant test 시리즈를 참고하자..
+    - Generics_Invariant: 무공변
+    - Generics_Covariant: 공변성
+    - Generics_Covariant: 반공변성
+  - 타입 파라미터 기본적인 variance 의 동작은 무공변 이다.
+  - 코틀린에서는
+  - List 와 Set 타입 파라미터는 공변성 이다.(out 한정자)
+  - Array, MutableList, MutableSet, MutableMap 의 타입 파라미터는 무공변(지정없음)이다.
+  - 함수 타입의 파라미터 타입은 반공변성(in 한정자)이다.
+  - 리턴타입은 공변성(out 한정자)이다.
+    - 리턴만 되는 타입에는 out 한정자를 사용합니다.
+    - 허용만 되는 타입에는 in 한정자를 사용합니다.
+---
+- Item25: 공통 모듈을 추출해서 여러 플랫폼에서 재사용하라.
+  - 코틀린을 사용하면 널리 사용되는 대부분의 장치와 플랫폼을 대상으로 개발할 수 있으며,
+  - 원하는 코드들을 재사용할 수 있다.
+
+
 
 
