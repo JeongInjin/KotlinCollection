@@ -15,4 +15,14 @@
   - 컴포지션은 this 리시버를 사용할 수 없기 때문에 리시버를 명시적으로 활용해야 해야 더 명시적입니다.
 ---
 
+- item37: 데이터 집합 표현에 data 한정자를 사용하라.
+  - 데이터를 표현할때는 data 클래스를 이용하는게 좋다.
+  - data 한정자를 붙이면, 몇 가지 함수들이 자동으로 생성된다.
+    - toString
+    - equals 와 hashCode
+    - copy (얕은 복사)
+    - componentN(component1, component2 등)
+
+---
+
 
