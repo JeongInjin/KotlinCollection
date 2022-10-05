@@ -96,6 +96,10 @@ fun Tool.Compainon.createBigTool : BigTool{
     - 생성자에 n개의 아규먼트가 있을때 기본값을 주어 직접 이름을 명시
   
 ---
+- item35: 복잡한 객체를 생성하기 위한 DSL 을 정의하라.
+  - 흐음~?
+
+---
 
 
 
