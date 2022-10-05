@@ -74,6 +74,26 @@
       - 어노테이션 프로세싱은 컴파일 시간에 어노테이션들을 스캐닝하고 프로세싱하는 javac 에 속한 빌드툴
 
 ---
+- item44: 멤버 확장 함수의 사용을 피하라.
+```kotlin
+//확장 함수는 컴파일 시 단순한 일반 함수로 컴파일 된다.
+//단순히 변환되는 것이므로 확장 함수를 아래와 같이 클래스 멤버로 정의할 수도 있고, 인터페이스 내부에 정의할 수도 있다.
+//DSL 을 만들때를 제외하면 이를 사용하지 말자.
+interface PhoneBook {
+    fun String.isPhoneNumber(): Boolean
+}
 
+class Fizz: PhoneBook {
+    override fun String.isPhoneNumber(): Boolean {
+        return length == 7 && all { it.isDigit() }
+    }
+}
+```
+- 아래와 같은 이유로 확장함수를 클래스 멤버로 정의하지 않는게 좋다.
+  - 가시성을 제한하지 못한다.
+  - 레퍼런스를 지원하지 않는다 ::
+  - 경험이 적은 개발자가 보면 직관적이지 않는다.
+
+---
   
 
