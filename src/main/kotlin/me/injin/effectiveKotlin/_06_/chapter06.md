@@ -24,5 +24,11 @@
     - componentN(component1, component2 등)
 
 ---
+- item38: 연산 또는 액션을 전달할 때는 인터페이스 대신 함수 타입을 사용하라.
+  - 메서드가 하나만 있는 인터페이스(SAM: Single-Abstract Method)
+  - 코틀린이 아닌 다른 언어에서 사용할 클래스를 설계할 때에는 SAM 을 사용하자.
 
+---
+
+  
 
