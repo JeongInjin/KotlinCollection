@@ -46,6 +46,16 @@
   - equals 를 따로 정의했다면 hashCode 도 함께 정의해 줘야한다.
 
 ---
+- item42: compareTo 의 규약을 지켜라.
+  - compareTo 메서드는 Any 클래스에 있는 메서드가 아니다.
+  - 여러 프로퍼티를 기반으로 정렬해야 한다면
+    - sortedWith
+  - 두 값을 단순하게 비교하기만 한다면
+    - compareValues
+  - 더 많은 값을 비교하거나, 선택기(selector)를 활용해서 비교하고 싶다면
+    - compareValuesBy
+
+---
 
 
   
