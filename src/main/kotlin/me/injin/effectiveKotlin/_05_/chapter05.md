@@ -8,7 +8,7 @@
     - 호출될 때마다 새 객체를 만들 필요가 없다.
 
   - 팩토리 함수 들..
-    1. Compaion 객체 팩토리 함수  
+    1. Companion 객체 팩토리 함수  
          팩토리 함수를 정의하는 가장 일반적인 방법은 Companion 객체를 사용하는것이다.
 ```kotlin
 class MyLinkedList<T>(
