@@ -2,10 +2,9 @@ package me.injin.example.example01_03
 
 class Generics_Invariant {
 }
-
 /**
-    1. 불변성(무공변성, invariant)
-    상속 관계에 상관없이 자신의 타입만 허용하는 것을 뜻한다. Kotlin 에서는 따로 지정해주지 않으면 기본적으로 모든 Generic Class 는 무공변이다. Java 에서의 <T>와 같다.
+1. 불변성(무공변성, invariant)
+상속 관계에 상관없이 자신의 타입만 허용하는 것을 뜻한다. Kotlin 에서는 따로 지정해주지 않으면 기본적으로 모든 Generic Class 는 무공변이다. Java 에서의 <T>와 같다.
  */
 open class Alcohol
 class Soju : Alcohol()
