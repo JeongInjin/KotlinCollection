@@ -4,10 +4,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import java.lang.UnsupportedOperationException
-import java.util.SortedSet
 import kotlin.concurrent.thread
 import kotlin.properties.Delegates
 
@@ -46,7 +44,7 @@ class Item1KtTest {
         repeat(1000) {
             thread {
                 Thread.sleep(10)
-                synchronized(lock) { num += 1}
+                synchronized(lock) { num += 1 }
             }
         }
         Thread.sleep(1000)
@@ -63,7 +61,7 @@ class Item1KtTest {
     var name: String = "InJin"
     var surname: String = "Jeong"
     private val fullName
-    get() = "$name $surname" //지우면 안됨
+        get() = "$name $surname" //지우면 안됨
 
     @Test
     fun p8_2() {
@@ -118,8 +116,15 @@ class Item1KtTest {
         list1 += 2 // list1.plusAssign(2)로 변경
         list2 += 2 // list2 = list2.plus(2)로 변경
 
+        var list9: List<String> = listOf()
+        list9 += "asd"
+        list9 += "efg"
+
         println(list1)
         println(list2)
+        println(list9)
+        list9 -= "efg"
+        println(list9)
 
         println("===")
         var list3 = mutableListOf<Int>()
@@ -154,6 +159,35 @@ class Item1KtTest {
         names += "Bill" // Names changed from [Fabio] to [Fabio, Bill]
     }
 
+    @Test
+    fun p18_1() {
+        val userRepository = UserRepository()
+        val storedUsers = userRepository.loadAll()
+        storedUsers[4] = "sososososo"
+
+        println(storedUsers)
+
+        println("===")
+
+        val storedUsers2 = userRepository.loadAll2()
+//        storedUsers2[4] = "sososososo" //에러
+
+    }
+
 }
 
 data class User(val name: String, val surname: String)
+data class User2(val name: String)
+
+class UserRepository {
+    private val storedUsers: MutableMap<Int, String> = mutableMapOf()
+
+    fun loadAll(): MutableMap<Int, String> {
+        return storedUsers
+    }
+
+    fun loadAll2(): Map<Int, String> {
+        return storedUsers
+//        return storedUsers.toMap()
+    }
+}
