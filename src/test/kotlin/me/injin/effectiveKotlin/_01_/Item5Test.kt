@@ -17,7 +17,7 @@ class Item5Test {
         require(n >= 0) {
             "Cannot calculate factorial of $n because it is smaller than 0"
         }
-        return if (n <= 1) 1 else factorialRequireTest(n -1 ) * n
+        return if (n <= 1) 1 else factorialRequireTest(n - 1) * n
     }
 
     @Test
