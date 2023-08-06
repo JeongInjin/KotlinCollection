@@ -7,14 +7,23 @@ class Item7Test {
 
     @Test
     fun nullOrFailureTest() {
-        someMethod()
+        val result = someMethod(1)
+        when (result) {
+            is Success -> println("is Success")
+            is Failure -> println("is Failure")
+        }
+        println("====================")
+        val result2 = someMethod(2)
+        when (result2) {
+            is Success -> println("is Success")
+            is Failure -> println("is Failure")
+        }
     }
 
     val random = Random()
 
-    fun someMethod(): Result<String> {
+    fun someMethod(num: Int): Result<String> {
 //        val num = random.nextInt(5)
-        val num = 1
         return if (num == 1) {
             println("Failure(IllegalStateException())")
             Failure(IllegalStateException())
