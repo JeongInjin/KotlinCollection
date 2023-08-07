@@ -44,7 +44,7 @@ class testCode {
             new >= 0
         }
 
-        
+
     }
 }
 
@@ -69,3 +69,4 @@ class SmartPhone(
     private val camera: Snappable = Camera()
 ) : Dialable by phone, Snappable by camera
 //) : Dialable by phone, Snappable by camera
+
