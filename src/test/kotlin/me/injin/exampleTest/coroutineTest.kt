@@ -1,9 +1,6 @@
 package me.injin.exampleTest
 
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
 
 class coroutineTest {
@@ -33,6 +30,43 @@ class coroutineTest {
             }
 
             println("Done")
+        }
+    }
+
+    @Test
+    fun `98페이지`() {
+        runBlocking {
+            val job = launch {
+                repeat(1_000) { i ->
+                    delay(200)
+                    println("Printing $i")
+                }
+            }
+
+            delay(1100)
+            job.cancel()
+            job.join()
+            println("Cancelled successfully")
+        }
+    }
+
+    @Test
+    fun `104페이지`() {
+        runBlocking {
+            val job = launch {
+                println("1000 s")
+                delay(1000)
+                println("1000 e")
+            }
+            job.invokeOnCompletion { exception: Throwable? ->
+                println("Finished")
+            }
+
+            println("400 s")
+            delay(400)
+            println("400 e")
+            job.cancelAndJoin()
+            println("job.cancelAndJoin() e")
         }
     }
 
