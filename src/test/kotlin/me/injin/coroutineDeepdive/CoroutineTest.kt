@@ -1,4 +1,4 @@
-package me.injin.exampleTest
+package me.injin.coroutineDeepdive
 
 import kotlinx.coroutines.*
 import org.junit.jupiter.api.Test
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 class coroutineTest {
 
     @Test
-    fun `코루틴 딥다이브 94페이지`() {
+    fun `94 페이지`() {
         runBlocking { // 메인 코루틴 시작
             val job = Job() // 부모 Job 생성
 
@@ -34,7 +34,7 @@ class coroutineTest {
     }
 
     @Test
-    fun `98페이지`() {
+    fun `98 페이지`() {
         runBlocking {
             val job = launch {
                 repeat(1_000) { i ->
@@ -51,7 +51,7 @@ class coroutineTest {
     }
 
     @Test
-    fun `104페이지`() {
+    fun `104 페이지`() {
         runBlocking {
             val job = launch {
                 println("1000 s")
@@ -67,6 +67,52 @@ class coroutineTest {
             println("400 e")
             job.cancelAndJoin()
             println("job.cancelAndJoin() e")
+        }
+    }
+
+    @Test
+    fun `113 페이지`() {
+        runBlocking {
+            launch {
+                delay(1000)
+                throw Error("Some error")
+            }
+
+            launch {
+                delay(2000)
+                println("Will not be printed")
+            }
+
+            launch {
+                delay(500) // 예외 발생보다 빠릅니다.
+                println("Will be printed")
+            }
+
+            launch {
+                delay(2000)
+                println("Will not be printed")
+            }
+
+        }
+    }
+
+    @Test
+    fun `115 페이지`() {
+        runBlocking {
+            // try-catch 구문으로 래핑하지 마세요. 무시됩니다.
+            try {
+                launch {
+                    delay(1000)
+                    throw Error("Some error")
+                }
+            } catch (e: Throwable) { // 여기선 아무 도움이 되지 않습니다.
+                println("will not be printed")
+            }
+
+            launch {
+                delay(2000)
+                println("will not be printed")
+            }
         }
     }
 
