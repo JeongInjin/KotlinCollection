@@ -1,1 +1,1 @@
-rootProject.name = "KotlinInAction"
+rootProject.name = "KotlinInCollection"
