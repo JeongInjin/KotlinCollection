@@ -550,3 +550,62 @@ suspendCancellableCoroutine 은 코루틴을 일시 중단하고, 외부의 비�
 취소가능: 취소를 지원한다. 취소되면 suspendCancellableCoroutine 블록내에서 등록한 취소 핸들러가 호출된다.
 
 ---
+
+# 10장 - 예외처리
+
+코루틴도 잡히지 않은 예외가 발생했을 때 종료합니다.
+코루틴 빌더는 부모도 종료시키며, 취소된 부모는 자식들 모두를 취소시킨다는 점.
+
+runBlocking {
+launch {
+delay(1000)
+throw Error("Some error")
+}
+
+    launch {
+        delay(2000)
+        println("Will not be printed")
+    }
+
+    launch {
+        delay(500) // 예외 발생보다 빠릅니다.
+        println("Will be printed")
+    }
+
+    launch {
+        delay(2000)
+        println("Will not be printed")
+    }
+
+}
+
+launch 코루틴을 더하는 건 아무것도 바꾸지 못합니다.
+예외는 자식에서 부모로 전하되며, 부모가 취소되면 자식도 취소되기 때문에 쌍방으로 전파됩니다.
+예외 전파가 정지되지 않으면 계통 구조상 모든 코루틴이 취소되게 됩니다.
+
+코루틴 종료 멈추기
+
+코루틴 간의 상호작용은 잡을 통해서 일어나기 때문에, 코루틴 빌더 내부에서 새로운 코루틴 빌더를 try-catch 문을 통해 래핑하는 건 전혀 도움이 되지 못합니다.
+
+runBlocking {
+// try-catch 구문으로 래핑하지 마세요. 무시됩니다.
+try {
+launch {
+delay(1000)
+throw Error("Some error")
+}
+} catch (e: Throwable) { // 여기선 아무 도움이 되지 않습니다.
+println("will not be printed")
+}
+
+    launch {
+        delay(2000)
+        println("will not be printed")
+    }
+
+}
+
+SupervisorJob
+코루틴 종료를 멈추는 가장 중요한 방법은 SupervisorJob 을 사용하는 것입니다.
+SupervisorJob 을 사용하면 자식에서 발생한 모든 예외를 무시할 수 있다.
+
