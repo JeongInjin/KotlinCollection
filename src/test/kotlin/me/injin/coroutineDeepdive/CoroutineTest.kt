@@ -116,4 +116,70 @@ class coroutineTest {
         }
     }
 
+    // 127 페이지 이렇게 구횬하면 안됩니다.
+//    suspend fun getUserProfile(scope: CoroutineScope): UserProfileData {
+//        val user = scope.async { getUserData() }
+//        val notifucation = scope.async { getNotifications() }
+//
+//        return UserprofileData(user.await(), notification.await())
+//    }
+
+    @Test
+    fun `128 페이지`() {
+        runBlocking {
+            val details = try {
+                getUserDetails()
+            } catch (e: Exception) {
+                println("Error: ${e.message}")
+                null
+            }
+
+            val tweets = async { getTweets() }
+            println("User: $details")
+            println("Tweets: ${tweets.await()}")
+            println(details)
+        }
+    }
+
+    data class Details(val name: String, val followers: Int)
+    data class Tweet(val text: String)
+
+    fun getFollowersNumber(): Int = throw Error("Service exception")
+    suspend fun getUserName(): String {
+        delay(500)
+        return "JeongInjin"
+    }
+
+    suspend fun getTweets(): List<Tweet> {
+        delay(1000)
+        return listOf(Tweet("Hello, World"))
+    }
+
+    suspend fun CoroutineScope.getUserDetails(): Details {
+        val name = async { getUserName() }
+        val tweets = async { getFollowersNumber() }
+        return Details(name.await(), tweets.await())
+    }
+
+    suspend fun longTask() = coroutineScope {
+        launch {
+            delay(1000)
+            val name = coroutineContext[CoroutineName]?.name
+            println("Task1 from $name")
+        }
+        launch {
+            delay(2000)
+            val name = coroutineContext[CoroutineName]?.name
+            println("Task2 from $name")
+        }
+    }
+
+    @Test
+    fun `130 페이지`() = runBlocking(CoroutineName("Parent")) {
+        println("Start")
+        longTask()
+        println("End")
+    }
+
+
 }
