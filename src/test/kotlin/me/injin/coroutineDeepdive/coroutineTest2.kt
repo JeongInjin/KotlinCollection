@@ -52,5 +52,48 @@ class coroutineTest2 {
         println("Hello") // 자식 코루틴이 완료되기 전에 바로 출력됩니다.
     }
 
-    
+    fun CoroutineScope.log(test: String) {
+        val name = this.coroutineContext[CoroutineName]?.name
+        println("$name : $test")
+    }
+
+    @Test
+    fun `135 페이지`() = runBlocking(CoroutineName("Parent")) {
+        log("Before")
+
+        withContext(CoroutineName("Child 1")) {
+            delay(1000)
+            log("Hello 1")
+        }
+
+        withContext(CoroutineName("Child 2")) {
+            delay(1000)
+            log("Hello 2")
+        }
+
+        log("After")
+    }
+
+    @Test
+    fun `140 페이지`(): Unit = runBlocking {
+        launch {// 1
+            launch {// 2 부모에 의해서 취소됩니다.
+                delay(2000)
+                println("Will not be printed 1")
+            }
+            withTimeout(1000) {// 2 , 이 코루틴이 launch 를 취소합니다.
+                delay(1500)
+                println("Will not be printed 2")
+            }
+            launch {
+                println("Will not be printed 3")
+            }
+        }
+        launch {// 3
+            delay(2000)
+            println("Will be printed")
+        }
+    }
+
+
 }
