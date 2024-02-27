@@ -329,5 +329,63 @@ close 함수로 반드시 닫아줘야한다.
 
 요즘은 주로 Dipatchers.Default.limitedParallelism(1) 식으로 주로 사용함.
 
+# 13장 - 코루틴 스코프 만들기
+
+코루틴 스코프 객체를 만드는 가장 쉬운 방법은 CoroutineScope 팩토리 함수를 사용하는 것입니다
+
+fun main() {
+// CoroutineScope 팩토리 함수를 사용하여 코루틴 스코프 생성
+val scope = CoroutineScope(Dispatchers.Default)
+
+    // 코루틴 스코프 내에서 코루틴 실행
+    scope.launch {
+        // 비동기적으로 작업 수행
+        delay(1000L)
+        println("CoroutineScope Example")
+    }
+
+    // 메인 스레드를 1.5초 동안 차단하여 코루틴이 완료되기를 기다림
+    Thread.sleep(1500L)
+
+}
+
+Ktor 에서 모든 핸들러는 기본적으로 중단 함수이다.따로 스코프를 만들 필요는 거의 없습니다
+
+https://tech.kakaopay.com/post/spring-and-ktor/
+
+ 
+
+Spring 공화국에서 Ktor 사용하기 | 카카오페이 기술 블로그
+Spring 공화국에서 Spring 개발자가 Ktor로 개발해본 경험담을 공유합니다.
+tech.kakaopay.com
+
+추자적인 연산을 시작하기 위한 스코프를 종종 만들곤 합니다.이런 스코프는 함수나 생성자의 인자를 통해 주로 주입됩니다.스코프를 호출을 중단하기 위한 목적으로만 사용하려는 경우 SupervisorScopre 를
+사용하는 것만으로 충분합니다.
+
+// 코루틴 내에서 발생하는 예외를 처리하기 위한 핸들러입니다. 코루틴이 예외로 인해 실패하면,
+// 이 핸들러가 호출되며, 여기서는 FirebaseCrashlytics를 사용하여 해당 예외를 기록하고 있습니다.
+// 이를 통해 애플리케이션의 예외 상황을 모니터링하고 디버깅할 수 있습니다.
+private val exceptionHandler =
+CoroutineExceptionHandler { _, throwable ->
+FirebaseCrashlytics.getInstance().recordException(throwable)
+}
+
+// analyticsScope는 SupervisorJob과 exceptionHandler를 결합하여 생성된 코루틴 스코프입니다.
+// 이 스코프 내에서 실행되는 코루틴들은 SupervisorJob의 특성을 가지게 되므로,
+// 개별 코루틴의 실패가 다른 코루틴에 영향을 미치지 않습니다.
+// 또한, 이 스코프에서 발생하는 예외는 exceptionHandler를 통해 처리됩니다.
+val analyticsScope = CoroutineScope(
+SupervisorJob() + exceptionHandler
+)
+
+remind
+
+SupervisorJob()은 코루틴의 부모-자식 관계에서 중요한 역할을 합니다. 일반적인 Job과는 다르게, SupervisorJob을 사용하면 하나의 자식 코루틴에서 발생한 예외가 다른 자식 코루틴들에게 전파되지
+않습니다. 이는 여러 개의 독립적인 작업을 관리할 때 유용합니다. 예를 들어, 여러 개의 네트워크 요청을 병렬로 실행하고 있을 때, 하나의 요청에서 예외가 발생해도 다른 요청들은 영향을 받지 않고 계속 실행될 수
+있습니다.
+
+---
+
+
 
 
