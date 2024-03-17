@@ -23,7 +23,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     //coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
 }
 
 tasks.withType<KotlinCompile> {
