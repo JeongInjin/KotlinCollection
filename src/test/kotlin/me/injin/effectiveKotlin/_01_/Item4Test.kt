@@ -2,7 +2,7 @@ package me.injin.effectiveKotlin._01_
 
 import org.junit.jupiter.api.Test
 
-class Item3Test {
+class Item4Test {
 
     @Test
     fun missMatchTest() {
@@ -19,4 +19,4 @@ class Item3Test {
 }
 
 open class Animal
-class Zebra:Animal()
+class Zebra : Animal()
