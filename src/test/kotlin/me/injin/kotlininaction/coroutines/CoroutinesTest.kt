@@ -28,7 +28,6 @@ class CoroutinesTest {
     }
 
 
-
     @Test
     fun testCoroutines() = runBlocking {
         CoroutineScope(Dispatchers.Default)
@@ -157,7 +156,7 @@ class CoroutinesTest {
     fun `Cancellation propagated coroutines hierarchy`() = runBlocking<Unit> {
         try {
             failedConcurrentSum()
-        } catch(e: ArithmeticException) {
+        } catch (e: ArithmeticException) {
             println("Computation failed with ArithmeticException")
         }
     }
@@ -198,10 +197,10 @@ class CoroutinesTest {
     Dispatchers 는 어떤 쓰레드나, 쓰레드풀에서 실행될지 결정할 수 있다.
     */
     /**
-        코루틴 문맥에는 코루틴이 어느 스레드에서 동작할지를 결정하는 CoroutineDispatcher 가 포함된다.
-        dispatcher 는 코루틴이 특정 스레드에서 실행되도록 할 수도 있고, 스레드 풀에서 실행되도록 할 수도 있고,
-        또는 어느 스레드에서 실행될지 결정하지 않은 상태로 놔 둘 수도 있다.
-        launch 와 async 같은 모든 코루틴 빌더에서 CoroutineContext 매개변수를 지정할 수 있다.
+    코루틴 문맥에는 코루틴이 어느 스레드에서 동작할지를 결정하는 CoroutineDispatcher 가 포함된다.
+    dispatcher 는 코루틴이 특정 스레드에서 실행되도록 할 수도 있고, 스레드 풀에서 실행되도록 할 수도 있고,
+    또는 어느 스레드에서 실행될지 결정하지 않은 상태로 놔 둘 수도 있다.
+    launch 와 async 같은 모든 코루틴 빌더에서 CoroutineContext 매개변수를 지정할 수 있다.
      */
     @Test
     fun dispatchersTest() = runBlocking<Unit> {

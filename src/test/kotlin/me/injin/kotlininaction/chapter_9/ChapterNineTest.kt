@@ -14,11 +14,11 @@ internal class ChapterNineTest {
         print(str)
     }
 
-    fun <T: Number> onHalf(value: T): Double = value.toDouble() / 2.0
+    fun <T : Number> onHalf(value: T): Double = value.toDouble() / 2.0
 
     fun <T> ensureTrailingPeriod(seq: T)
             where T : CharSequence, T : java.lang.Appendable {
-                if(!seq.endsWith('.')) seq.append(".")
+        if (!seq.endsWith('.')) seq.append(".")
     }
 
     @Test
@@ -31,7 +31,7 @@ internal class ChapterNineTest {
 
     @Test
     fun filterIsInstanceTst() {
-        val  items = listOf("one", 2, "three")
+        val items = listOf("one", 2, "three")
         println(items.filterIsInstance<String>()) //[one, three]
     }
 
@@ -44,10 +44,10 @@ internal class ChapterNineTest {
 }
 
 interface Animal
-open class Kitten: Animal
-open class Cat: Kitten()
+open class Kitten : Animal
+open class Cat : Kitten()
 
-class Herd<out T: Animal> {
+class Herd<out T : Animal> {
     // ...
 }
 
