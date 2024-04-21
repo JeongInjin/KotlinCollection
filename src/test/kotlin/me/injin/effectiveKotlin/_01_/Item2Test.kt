@@ -109,14 +109,16 @@ class Item2Test {
      */
     @Test
     fun `에라토스체네스의 체 sequence 이용`() {
+        // 1111
         val time = measureTimeMillis {
             val primes: Sequence<Int> = sequence {
                 println("sequence block started")
                 //2부터 검색하기위해 인수로 2를 주고 1씩 증가하도록 시퀀스 정의
                 var numbers = generateSequence(2) { it + 1 }
-
+                println("numbers: $numbers")
                 while (true) {
                     val prime = numbers.first()
+                    println("prime: $prime")
                     yield(prime)//sequence 에 prime 을 넘겨준다.
                     numbers = numbers.drop(1).filter { it % prime != 0 }
                 }
@@ -232,6 +234,7 @@ class Item2Test {
 
     @Test
     fun `캡처링 문제`() {
+        // 222222
         val time = measureTimeMillis {
             val primes: Sequence<Int> = sequence {
                 var numbers = generateSequence(2) { it + 1 }
