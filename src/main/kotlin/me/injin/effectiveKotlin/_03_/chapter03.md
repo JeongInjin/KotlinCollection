@@ -102,6 +102,66 @@ class UI(window: IWindow) : IWindow by window
 
 - item22: 일반적인 알고리즘을 구현할 때 제네릭을 사용하라.
     - 타입 파라미터의 중요한 기능 중 하나는 구체적인 타입의 서브타입만 사용하게 타입을 제한하는 것.
+      타입 아규먼트를 사용하는 함수를 제네릭 함수라고 부릅니다.
+
+함수에서는 fun 키워드와 함수 이름 사이에 <T> 형태의 코드를 입력합니다.클래스와 인터페이스는 이름 뒤에 <T> 형태의 코드를 입력합니다.
+타입 파라미터를 사용하면 개발자는 여러 가지 이득을 얻지만, 프로그램은 실질적인 이득이 없습니다.JVM 바이트 코드의 제한으로 인해, 컴파일 시점에 제네릭과 관련된 정보는 사라집니다.따라서 런타임 때 어떤 이득도
+얻을 수 없습니다.
+
+제네릭 제한
+
+타입 파라미터의 중요한 기능 중 하나는 구체적인 타입의 서브타입만 사용하게 타입을 제한하는 것
+
+```
+기본 사용
+
+// T는 Number 또는 Number의 하위 타입이어야 함
+fun <T : Number> processNumber(value: T) {
+    println(value.toDouble())
+}
+
+fun main() {
+    processNumber(42)       // Int는 Number의 하위 타입
+    processNumber(3.14)     // Double은 Number의 하위 타입
+    // processNumber("string") // 오류: String은 Number의 하위 타입이 아님
+}
+
+클래스에서의 사용
+제네릭 클래스를 정의할 때도 슈퍼타입 제한을 설정할 수 있습니다.
+
+// T는 Comparable<T>를 구현한 타입이어야 함
+class Box<T : Comparable<T>>(val value: T) {
+    fun compareTo(other: T): Int {
+        return value.compareTo(other)
+    }
+}
+
+fun main() {
+    val intBox = Box(42)
+    val strBox = Box("Hello")
+
+    println(intBox.compareTo(100))   // 정상 작동
+    println(strBox.compareTo("World")) // 정상 작동
+    // val anyBox = Box(Any()) // 오류: Any는 Comparable을 구현하지 않음
+}
+ 
+다중 상한 경계 설정
+코틀린에서는 제네릭 타입 파라미터에 다중 상한 경계를 설정할 수 있습니다. 
+이를 통해 제네릭 타입이 여러 인터페이스나 클래스를 구현하거나 확장하도록 제한할 수 있습니다.
+
+// T는 Number를 상속하고, Comparable<T>를 구현해야 함
+fun <T> sortNumbers(list: List<T>) where T : Number, T : Comparable<T> {
+    list.sorted().forEach { println(it) }
+}
+
+fun main() {
+    val numberList = listOf(3, 1, 4, 1, 5)
+    sortNumbers(numberList) // 정상 작동
+
+    // val invalidList = listOf("a", "b", "c")
+    // sortNumbers(invalidList) // 오류: String은 Number를 상속하지 않음
+}
+```
 
 ---
 
